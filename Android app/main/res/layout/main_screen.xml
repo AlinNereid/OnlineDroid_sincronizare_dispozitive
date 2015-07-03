@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OnlineDroid"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/DisconnectButton"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:text="@string/disconnect"
+                android:layout_marginTop="75dp"
+                android:layout_marginLeft="25dp"
+                android:onClick="logOut"/>
+        </RelativeLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="20dp" />
+        <Button
+            android:id="@+id/SettingsButton"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:text="@string/settings"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="75dp"
+            android:onClick="settings"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/StaticText"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:text="You are connected!"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:textAlignment="gravity"
+        android:layout_marginBottom="150dp"/>
+
+</RelativeLayout>

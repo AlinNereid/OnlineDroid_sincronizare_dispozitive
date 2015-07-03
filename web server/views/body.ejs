@@ -1,0 +1,278 @@
+<div id="page_wrapper">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <p class="navbar-brand">OnlineDroid</p>
+      <p class="navbar-text">Welcome <%=user%>!</p>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" id="navBar">
+        <li class="active" id="agendaOption"><a style="cursor: pointer;" onclick="changeScreen('agenda');">Agenda <span class="sr-only">(current)</span></a></li>
+        <li id="notificationOption"><a style="cursor: pointer;" onclick="changeScreen('notification');">Notifications</a></li>
+        <li id="callLogOption"><a style="cursor: pointer;" onclick="changeScreen('callLog');">Call Log</a></li>
+        <li id="locationOption"><a style="cursor: pointer;" onclick="changeScreen('location');">Location</a></li>
+        <li id="settingsOption"><a style="cursor: pointer;" onclick="changeScreen('settings');">Settings</a></li>
+        <li id="disconnectOption"><a href="/logout" onclick="changeScreen('disconnect');">Disconnect</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+  <%
+  var prim = true;
+    for(var i = 0; i < deviceList.length; i++)
+    {
+      if(prim)
+      {
+        %>
+        <div style='position: fixed; top: 2em; right: 2em; display: visible;' id='callAlertContainer<%=deviceList[i].id%>'>
+        <%
+      }
+      else {
+        %>
+        <div style='position: fixed; top: 2em; right: 2em; display: none;' id='callAlertContainer<%=deviceList[i].id%>'>
+      <%
+      }
+      %>
+      </div>
+      <%
+    }
+  %>
+  <!-- <div style="clear: both"></div> -->
+  <div id="left_sidebar" style="overflow: auto;">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3>My devices</h3>
+      </div>
+      <div id="userDeviceList" class="panel-body" style="overflow: hidden">
+    <%
+      for(var i = 0; i < deviceList.length; i++)
+      {
+    %>
+        <div class="list-group">
+          <a style="cursor: pointer;" id="userDeviceID<%=deviceList[i].id%>" class="list-group-item active" onclick='updatecurrentDevice("<%=deviceList[i].id%>")'>
+            <h4 class="list-group-item-heading"><%=deviceList[i].name %></h4>
+            <p class="list-group-item-text" style="margin-bottom: 10px;" id="batteryID<%=deviceList[i].id%>">Battery level: <%=deviceList[i].battery%></p>
+            <ul class="list-group" style="display: none; margin-bottom: 8px; padding-top: inerit;">
+              <li class="list-group-item" style="color: black; font-family: arial;">
+                <span class="badge" id="smsBadge<%=deviceList[i].id%>">0</span>
+                Messages
+              </li>
+              <li class="list-group-item" style="color: black; font-family: arial;">
+                <span class="badge" id='device<%=deviceList[i].id%>NotificationCount'>0</span>
+                Notifications
+              </li>
+            </ul>
+          </a>
+        </div>
+    <%
+      }
+    %>
+      </div> <!-- panel body-->
+    </div><!-- panel primary-->
+  </div>  <!-- left sidebar -->
+  <div id="right_sidebar">
+    <div id="right_sidebar_agenda" style="height: inherit;">
+      <%
+      var first_window = true;
+      for(var i = 0; i < deviceList.length; i++)
+        {
+          if(first_window)
+          {
+            first_window = false;
+          %>
+            <div class="agenda_window" id="agenda_window<%=deviceList[i].id%>" style="display: visible">
+          <%
+          }
+          else {
+          %>
+            <div class="agenda_window" id="agenda_window<%=deviceList[i].id%>" style="display: none">
+        <%
+        }
+        %>
+              <div class="chat-container" id="agenda_window<%=deviceList[i].id%>">
+                <%
+                  var first_chat_box = true;
+                  for(var contact in agenda)
+                  {
+                    if(first_chat_box)
+                    {
+                      first_chat_box = false;
+                %>
+                    <div class="panel-body  chat-box" id="chat-box<%=deviceList[i].id%><%=contact%>" style="display: visible">
+                    </div>
+                    <div class="chat-box-footer" id="chat-box-footer<%=deviceList[i].id%><%=contact%>" style="display: visible">
+                <%
+                    }
+                    else
+                    {
+                %>
+                    <div class="panel-body  chat-box" id="chat-box<%=deviceList[i].id%><%=contact%>" style="display: none">
+                    </div>
+                    <div class="chat-box-footer" id="chat-box-footer<%=deviceList[i].id%><%=contact%>" style="display: none">
+                <%
+                    }
+                %>
+                  <div class="input-group" style="margin: 4px;">
+                      <input type="text" class="form-control" placeholder="Enter Text Here..." id="input<%=deviceList[i].id%><%=contact%>">
+                      <span class="input-group-btn">
+                          <button class="btn btn-info" id="button-send<%=deviceList[i].id%><%=contact%>" onclick='sendMessage("<%=deviceList[i].id%>", "<%=contact%>")' type="button">SEND</button>
+                      </span>
+                  </div>
+                </div> <!-- chat box footer -->
+                <%
+                }
+                %>
+              </div> <!--chat container -->
+              <div class="agenda_list" id="agenda_list<%=deviceList[i].id%>">
+                <ul class="list-group" style="overflow: auto;" id="contact_list<%=deviceList[i].id%>">
+                <%
+                    var first = true;
+                    for(var person in agenda)
+                    {
+                      if(first)
+                      {
+                        first = false;
+                %>
+                      <li class="list-group-item active" id="contact_item<%=deviceList[i].id%><%=person%>" onclick='changeChat("<%=deviceList[i].id%>", "<%=person%>")' style="color: white"><a style='color: inherit;'> <%=agenda[person]%></a><img src='img/red_dot.png' style='display: none'><p style="display: none" id="unread<%=deviceList[i].id%><%=person%>">0</p></li>
+                <%
+                      }
+                      else
+                      {
+                %>
+                      <li class="list-group-item"  style='color: #337ab7;' id="contact_item<%=deviceList[i].id%><%=person%>" onclick='changeChat("<%=deviceList[i].id%>", "<%=person%>")'><a style='color: inherit;'> <%=agenda[person]%></a><img src='img/red_dot.png' class='red_dot' style='display: none'><p style="display: none" id="unread<%=deviceList[i].id%><%=person%>">0</p></li>
+                <%
+                      }
+                  }
+                %>
+                  </ul>
+              </div> <!-- agenda_list -->
+              <div style="clear: both"></div>
+            </div> <!-- agenda_window -->
+      <%
+        }
+      %>
+    </div> <!-- right sidebar agenda -->
+   <div id="right_sidebar_notification" style="display: none; height: inherit;">
+    <%
+      var first = true;
+      for(var i = 0; i < deviceList.length; i++)
+      {
+        if(first)
+        {
+          first = false;
+    %>
+        <div id="notification_window<%=deviceList[i].id%>" style="display: visible">
+    <%
+        }
+        else {
+          %>
+        <div id="notification_window<%=deviceList[i].id%>" style="display: none">
+          <%
+        }
+    %>
+      <div id="notification_window<%=deviceList[i].id%>" style='display: visible'>
+          <ul class='list-group notif_stack' id='stack<%=deviceList[i].id%>' style='overflow: auto; width: 70%; height: 100%;'>
+          </ul>
+      </div>
+        <button type="button" class="btn btn-default" style='margin-left: 85%; margin-top: -600px;' id="dismissNotifBtn<%=deviceList[i].id%>" onclick="dismissAllNotif('<%=deviceList[i].id%>')">Dismiss all</button>
+        </div>
+    <%
+      }
+    %>
+   </div>
+
+   <div id="right_sidebar_calllog" style="display:none; height: inherit">
+     <%
+      var first = true;
+      for(var i = 0; i < deviceList.length; i++)
+      {
+        if(first)
+        {
+          first = false;
+      %>
+          <div id="calllog_window<%=deviceList[i].id%>" style="display: visible">
+      <%
+        }
+        else {
+      %>
+          <div id="calllog_window<%=deviceList[i].id%>" style="display: none">
+      <%
+        }
+      %>
+          <ul class='list-group notif_stack' id='logstack<%=deviceList[i].id%>' style='overflow: auto; width: 70%; height: 100%'>
+          </ul>
+          <button class='btn btn-default' style='margin-left: 85%; margin-top: -600px;' id='dismissAllCallsBtn<%=deviceList[i].id%>'>Dismiss All</button>
+          </div>
+      <%
+      }
+     %>
+   </div>
+   <div id="right_sidebar_location" style="display: none; width:100%; height:100%;">
+     <%
+      var first = true;
+      for(var i = 0; i < deviceList.length; i++)
+      {
+        if(first)
+        {
+          first = false;
+        %>
+          <div id="location<%=deviceList[i].id%>" style="display: visible; width: 100%; height: 100%;">
+        <%
+        }
+        else
+        {
+          %>
+          <div id="location<%=deviceList[i].id%>" style="display: none; width: 100%; height: 100%;">
+          <%
+        }
+        %>
+          <div id="map-canvas"></div>
+          </div>
+        <%
+      }
+     %>
+   </div>
+   <div id="right_sidebar_settings" style="display: none; height: inherit">
+     <%
+      var first = false;
+      for(var i = 0; i < deviceList.length; i++)
+      {
+        if(first)
+        {
+          first = false;
+          %>
+          <div id="settings<%=deviceList[i].id%>" style="display: visible">
+          <%
+        }
+        else {
+        %>
+          <div id="settings<%=deviceList[i].id%>" style="display: none">
+        <%
+        }
+        %>
+        <div style="height: 100%; width: 100%;">
+        	<ul class="list-group checked-list-box" style='margin: auto; width: 50%' id="settings<%=deviceList[i].id%>">
+              <li class='list-group-item'>Receive SMS<input style='margin-left: -98px' type='checkbox'  id='receiveSMScheckbox<%=deviceList[i].id%>'></li>
+              <li class='list-group-item'>Send SMS<input style='margin-left: -80px' type='checkbox' id='sendSMScheckbox<%=deviceList[i].id%>'></li>
+              <li class='list-group-item'>Receive Push notifications<input style='margin-left: -179px' type='checkbox' id='notificationcheckbox<%=deviceList[i].id%>'></li>
+              <li class='list-group-item'>Receive last known location<input style='margin-left: -188px' type='checkbox' id='locationcheckbox<%=deviceList[i].id%>'></li>
+              <li class='list-group-item'>Receive missed calls<input style='margin-left: -145px' type='checkbox' id='calllogcheckbox<%=deviceList[i].id%>'></li>
+            </ul>
+            <button class="btn btn-default" style='margin-top: -370px; margin-left: 40%;' id="savesettings<%=deviceList[i].id%>" onclick="saveSettings('<%=deviceList[i].id%>')">Save settings</button>
+        </div>
+        <%
+      }
+     %>
+   </div>
+  </div>  <!-- right sidebar -->
+  <div id="footer">
+    <p class="centered_text">Proiect Licenta</p>
+  </div>
+</div><!-- page_wrapper -->

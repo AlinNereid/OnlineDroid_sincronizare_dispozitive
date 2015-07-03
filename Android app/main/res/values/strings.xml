@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">AndroidWebSocket</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Log Out</string>
+    <string name="settings">Settings</string>
+    <string name="customSettings">Custom Settings</string>
+    <string name="forwardSms">Allow forwarding SMS to WebApp</string>
+    <string name="sendSms">Allow sending SMS from WebApp</string>
+    <string name="pushNotifications">Allow push notification redirection</string>
+    <string name="findMyDevice">Allow finding device through geolocation</string>
+    <string name="ringDevice">Display a notification when a call is received</string>
+    <string name="helpButton">Help</string>
+    <string name="helpTitle">How to</string>
+    <string name="saveSettings">Save</string>
+    <string name="ringSound">Ringtone</string>
+    <string name="browse">Browse</string>
+    <string name="mainScreen">Main screen</string>
+    <string name="myAlphaNumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^*()_+=-[]{}\|.?/>,;:</string>
+</resources>

@@ -1,0 +1,120 @@
+/* LOGIN CSS */
+#login_form_container{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
+  padding: 25px;
+  background-color: #FFFFFF;
+  width: 50%;
+}
+
+/* BODY CSS */
+#page_wrapper{
+  margin: 0 auto;
+  width: 80%;
+  background-color: #ADADAD; /* #5F5E5B*/
+}
+#left_sidebar{
+  overflow: auto;
+  float:left;
+  width: 25%;
+  height: 600px;
+  background-color: #ADADAD; /*#A60000 #BF3030 pt itemii din lista on hover*/
+}
+#right_sidebar{
+  float:right;
+  width: 75%;
+  height: 600px;
+  background-color: #2E6EA5; /* #B9F73E color for text bubbles*/
+}
+#footer{
+  background-color: grey;
+}
+.notif_stack{
+  width: 50%;
+  margin: 0 auto;
+}
+.agenda_window{
+  height: inherit
+}
+.agenda_list {
+  float:right;
+  width: 30%;
+  height: inherit;
+}
+.chat-box{
+  overflow: auto;
+  height:92%;
+  background-color: white;
+  margin: 7px;
+}
+.chat-box-message{
+  height: auto;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #C5C5C5;
+  font-size: 12px;
+  background-color: #CDFFB8;
+  /*display: inline-block;*/
+}
+.gm-style {
+  position: inherit !important;
+}
+.chat-container{
+  width: 70%;
+  height: inherit;
+  float:left;
+}
+.centered_text{
+  margin: 0 auto;
+}
+.list-group{
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-right: 7px;
+  overflow: hidden;
+  height: inherit;
+}
+.navbtn{
+  float: left;
+  margin-left: 10%;
+  height: 50px;
+  width: 10%;
+  background-color: 009999;
+}
+.navbtn p {
+  float: right;
+}
+.navbtn:hover {
+  background-color: #5F5E5B;
+}
+.navbar{
+  background-color: 009999;
+}
+.sidebtn {
+  margin-top: 10px;
+  background-color: #BF3030;
+  height: 70px;
+}
+.deviceStatus{
+  padding-top: 5px;
+  float:right;
+}
+.deviceNotifications{
+  float:left;
+}
+.stats {
+  float: right;
+  width: 80%;
+  margin-right: 10px;
+}
+.red_dot{
+  width: 10px;
+  height: 10px;
+  float: right;
+  margin-top: 5px;
+}
+body {
+  background-color: #D3D3D3;
+}
